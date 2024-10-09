@@ -10,14 +10,12 @@ const nextConfig = {
     console.log(error);
     console.log(errorInfo);
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
-      config.node = {
-        fs: 'empty'
-      }
+      config.resolve.fallback = { ...config.resolve.fallback, fs: false };
     }
-    return config
+    return config;
   }
 };
 
